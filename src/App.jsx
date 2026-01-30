@@ -1,219 +1,72 @@
 import React, { useState } from 'react';
-import { 
-  Calendar, 
-  Clock, 
-  Columns, 
-  BarChart, 
-  CheckCircle2, 
-  AlertCircle
-} from 'lucide-react';
-
-const SECTIONS = [
-  { id: 'macro', label: '1. Master Calendar', icon: <Calendar className="w-5 h-5" />, level: 'Macro-Planning' },
-  { id: 'meso', label: '2. Weekly Time-Block', icon: <Clock className="w-5 h-5" />, level: 'Meso-Planning' },
-  { id: 'kanban', label: '3. Kanban Board', icon: <Columns className="w-5 h-5" />, level: 'Workflow Management' },
-  { id: 'gantt', label: '4. Gantt Chart', icon: <BarChart className="w-5 h-5" />, level: 'Strategic Dependency' }
-];
+import IRACVisualizer from './components/IRACVisualizer';
+import ProductivitySystem from './components/ProductivitySystem';
+import { Layout, FileText, ChevronRight } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('macro');
+  const [view, setView] = useState('dashboard');
+
+  if (view === 'irac') {
+    return <IRACVisualizer onBack={() => setView('dashboard')} />;
+  }
+
+  if (view === 'productivity') {
+    return <ProductivitySystem onBack={() => setView('dashboard')} />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
-      <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
-        
-        {/* Navigation Sidebar/Top */}
-        <div className="flex flex-col md:flex-row border-b border-slate-200 bg-slate-100">
-          {SECTIONS.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => setActiveTab(s.id)}
-              className={`flex-1 flex items-center justify-center gap-3 p-5 text-sm font-bold transition-all border-b-4 md:border-b-0 md:border-r last:border-r-0 ${
-                activeTab === s.id 
-                ? 'bg-white text-blue-600 border-blue-600' 
-                : 'text-slate-500 border-transparent hover:bg-slate-50'
-              }`}
-            >
-              {s.icon}
-              <div className="text-left">
-                <div className="block uppercase tracking-wider text-[10px] opacity-60 leading-none mb-1">{s.level}</div>
-                <div>{s.label}</div>
-              </div>
-            </button>
-          ))}
+      <div className="max-w-4xl mx-auto">
+        <header className="mb-12 text-center">
+          <h1 className="text-4xl font-extrabold text-slate-800 mb-4">Legal Success Dashboard</h1>
+          <p className="text-slate-500 text-lg italic">Essential tools for modern law students</p>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Productivity System Card */}
+          <button 
+            onClick={() => setView('productivity')}
+            className="group relative bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-left transition-all hover:shadow-xl hover:border-blue-200 overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+              <Layout className="w-32 h-32" />
+            </div>
+            <div className="bg-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
+              <Layout className="w-6 h-6" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">Productivity System</h2>
+            <p className="text-slate-500 mb-6 leading-relaxed">
+              Master your schedule with strategic macro, meso, and micro planning tools.
+            </p>
+            <div className="flex items-center text-blue-600 font-bold gap-2">
+              Get Started <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
+
+          {/* IRAC Visualizer Card */}
+          <button 
+            onClick={() => setView('irac')}
+            className="group relative bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-left transition-all hover:shadow-xl hover:border-blue-200 overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+              <FileText className="w-32 h-32" />
+            </div>
+            <div className="bg-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
+              <FileText className="w-6 h-6" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">IRAC Visualizer</h2>
+            <p className="text-slate-500 mb-6 leading-relaxed">
+              Convert complex fact patterns into structured legal analysis with step-by-step guidance.
+            </p>
+            <div className="flex items-center text-blue-600 font-bold gap-2">
+              Launch App <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
         </div>
 
-        {/* Content Area */}
-        <div className="p-6 md:p-10">
-          
-          {activeTab === 'macro' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-                <div className="md:w-1/3">
-                  <h2 className="text-2xl font-bold mb-4">The "Bird's-Eye View"</h2>
-                  <p className="text-slate-600 leading-relaxed mb-6">
-                    Create this at the start of the term. It prevents missed deadlines and "panic cramming" by visualizing high-stakes dates before the semester gets busy.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="p-3 bg-blue-50 border-l-4 border-blue-600 text-sm">
-                      <span className="font-bold">Includes:</span> Midterms, Finals, Memo Deadlines, Holidays.
-                    </div>
-                    <div className="p-3 bg-slate-50 border-l-4 border-slate-400 text-sm">
-                      <span className="font-bold">Tools:</span> Google Calendar, Outlook, Large Wall Planners.
-                    </div>
-                  </div>
-                </div>
-                <div className="md:w-2/3 w-full bg-slate-100 p-4 rounded-xl border border-slate-200">
-                  <div className="grid grid-cols-7 gap-2 text-center mb-2 font-bold text-xs text-slate-400">
-                    {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(d => <div key={d}>{d}</div>)}
-                  </div>
-                  <div className="grid grid-cols-7 gap-2 h-64">
-                    {Array.from({ length: 35 }).map((_, i) => (
-                      <div key={i} className="bg-white rounded p-1 text-[10px] flex flex-col justify-between border border-slate-100">
-                        <span>{i + 1}</span>
-                        {i === 12 && <div className="bg-red-500 text-white rounded px-1 truncate">FINAL MEMO</div>}
-                        {i === 24 && <div className="bg-orange-500 text-white rounded px-1 truncate">MIDTERM</div>}
-                        {i === 2 && <div className="bg-blue-500 text-white rounded px-1 truncate">LSD HOLIDAY</div>}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'meso' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-                <div className="md:w-1/3">
-                  <h2 className="text-2xl font-bold mb-4">Weekly Time-Block</h2>
-                  <p className="text-slate-600 leading-relaxed mb-4">
-                    Reverse engineer your Master Calendar into an hourly schedule.
-                  </p>
-                  <ul className="space-y-3 text-sm">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" /> <strong>3:1 Ratio:</strong> 3 hrs study for every 1 hr in class.</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" /> <strong>Specificity:</strong> Not "Study," but "Outline Crim Law Ch 10."</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" /> <strong>Fixed Blocks:</strong> Commute, Meals, Sleep.</li>
-                  </ul>
-                </div>
-                <div className="md:w-2/3 w-full border border-slate-200 rounded-xl overflow-hidden bg-white">
-                  <div className="bg-blue-600 text-white p-3 text-center text-sm font-bold">SAMPLE MONDAY</div>
-                  <div className="divide-y divide-slate-100">
-                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">08:00 AM</div><div className="flex-1 bg-slate-50 p-2 rounded text-xs border border-slate-200 italic">Commute / Audio Outlines</div></div>
-                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">09:00 AM</div><div className="flex-1 bg-blue-100 p-2 rounded text-xs border border-blue-200 font-bold">Contracts (Room 102)</div></div>
-                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">11:00 AM</div><div className="flex-1 bg-green-100 p-2 rounded text-xs border border-green-200 font-bold">Study: Brief 3 Torts Cases</div></div>
-                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">01:00 PM</div><div className="flex-1 bg-green-100 p-2 rounded text-xs border border-green-200 font-bold">Study: Outline Crim Law Ch 10-14</div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'kanban' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">Kanban Board: Managing Flow</h2>
-                <p className="text-slate-600 max-w-2xl">
-                  Manage tasks, not just time. This visualizes your workflow and helps identify bottlenecks where work is piling up.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {['To Do', 'Doing', 'Done'].map((col, idx) => (
-                  <div key={col} className="bg-slate-100 p-4 rounded-xl min-h-[300px]">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="font-bold text-xs uppercase tracking-widest text-slate-500">{col}</span>
-                      <span className="bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full text-[10px] font-bold">
-                        {idx === 0 ? '3' : idx === 1 ? '1' : '5'}
-                      </span>
-                    </div>
-                    {col === 'To Do' && (
-                      <div className="space-y-2">
-                        <div className="bg-white p-3 rounded shadow-sm text-xs border border-slate-200">Read CivPro Rule 12(b)(6)</div>
-                        <div className="bg-white p-3 rounded shadow-sm text-xs border border-slate-200">Finalize Memo Citations</div>
-                        <div className="bg-white p-3 rounded shadow-sm text-xs border border-slate-200">Review Flashcards (Torts)</div>
-                      </div>
-                    )}
-                    {col === 'Doing' && (
-                      <div className="bg-blue-50 p-3 rounded shadow-sm text-xs border border-blue-200 border-l-4 border-l-blue-600">
-                        <div className="font-bold mb-1">Outlining: Intentional Torts</div>
-                        <div className="h-1.5 w-full bg-slate-200 rounded-full mt-2">
-                          <div className="h-full bg-blue-600 w-2/3 rounded-full"></div>
-                        </div>
-                      </div>
-                    )}
-                    {col === 'Done' && (
-                      <div className="opacity-50 space-y-2">
-                        <div className="bg-white p-3 rounded shadow-sm text-xs line-through italic">Brief Palsgraf v. Long Island RR</div>
-                        <div className="bg-white p-3 rounded shadow-sm text-xs line-through italic">Submit Crim Law Midterm</div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'gantt' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-                <div className="md:w-1/3">
-                  <h2 className="text-2xl font-bold mb-4">Gantt Chart: Dependencies</h2>
-                  <p className="text-slate-600 leading-relaxed mb-6">
-                    Used for long-term planning where tasks depend on one another. You cannot write the final draft until the research phase is done.
-                  </p>
-                  <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 flex gap-3">
-                    <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
-                    <div className="text-xs text-amber-800">
-                      <strong>Pro Tip:</strong> Use "Free Google Sheets Gantt Templates" for a professional setup without learning complex software.
-                    </div>
-                  </div>
-                </div>
-                <div className="md:w-2/3 w-full bg-white border border-slate-200 rounded-xl p-4 overflow-x-auto">
-                  <div className="min-w-[400px]">
-                    <div className="grid grid-cols-5 text-[10px] font-bold text-slate-400 mb-2 border-b pb-1 uppercase tracking-tighter">
-                      <div className="col-span-1">Task</div>
-                      <div>Wk 1</div>
-                      <div>Wk 2</div>
-                      <div>Wk 3</div>
-                      <div>Wk 4</div>
-                    </div>
-                    <div className="space-y-4 pt-2">
-                      <div className="grid grid-cols-5 items-center">
-                        <div className="text-[11px] font-semibold">Research Cases</div>
-                        <div className="col-span-1 bg-blue-500 h-6 rounded-l"></div>
-                        <div className="col-span-1 bg-blue-500 h-6 rounded-r mr-12"></div>
-                      </div>
-                      <div className="grid grid-cols-5 items-center">
-                        <div className="text-[11px] font-semibold">Draft Memo</div>
-                        <div></div>
-                        <div className="col-span-1 bg-indigo-500 h-6 rounded-l ml-8"></div>
-                        <div className="col-span-1 bg-indigo-500 h-6 rounded-r"></div>
-                      </div>
-                      <div className="grid grid-cols-5 items-center">
-                        <div className="text-[11px] font-semibold">Peer Review</div>
-                        <div></div>
-                        <div></div>
-                        <div className="col-span-1 bg-teal-500 h-6 rounded-l"></div>
-                        <div className="col-span-1 bg-teal-500 h-6 rounded-r"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-        </div>
-
-        <div className="bg-slate-900 text-white p-6 md:px-10 flex flex-col md:flex-row gap-6 md:items-center justify-between">
-          <div>
-             <h3 className="font-bold text-lg">Academic Productivity System</h3>
-             <p className="text-slate-400 text-sm italic">Structured Planning for Legal Professionals</p>
-          </div>
-          <div className="text-xs text-slate-500">
-            &copy; 2026 Legal Analysis Tool
-          </div>
-        </div>
+        <footer className="mt-20 text-center text-slate-400 text-sm">
+          &copy; 2026 Legal Success Dashboard. Built for law students.
+        </footer>
       </div>
     </div>
   );
