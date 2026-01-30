@@ -18,8 +18,8 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
       <div className="max-w-4xl mx-auto">
         <header className="mb-12 text-center">
-          <h1 className="text-4xl font-extrabold text-slate-800 mb-4">Legal Success Dashboard</h1>
-          <p className="text-slate-500 text-lg italic">Essential tools for modern law students</p>
+          <h1 className="text-4xl font-extrabold text-slate-800 mb-4">COL Study Workshop App Dashboard</h1>
+          <p className="text-slate-500 text-lg italic">Time Management and IRAC Visualizer</p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -34,12 +34,12 @@ export default function App() {
             <div className="bg-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
               <Layout className="w-6 h-6" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-800 mb-2">Productivity System</h2>
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">Calendar System</h2>
             <p className="text-slate-500 mb-6 leading-relaxed">
               Master your schedule with strategic macro, meso, and micro planning tools.
             </p>
             <div className="flex items-center text-blue-600 font-bold gap-2">
-              Get Started <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Let's Go <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
 
@@ -59,13 +59,13 @@ export default function App() {
               Convert complex fact patterns into structured legal analysis with step-by-step guidance.
             </p>
             <div className="flex items-center text-blue-600 font-bold gap-2">
-              Launch App <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Launch Visualizer <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
         </div>
 
         <footer className="mt-20 text-center text-slate-400 text-sm">
-          &copy; 2026 Legal Success Dashboard. Built for law students.
+          &copy; 2026 Legal Success Dashboard. Built for COL law students - Erika Yoon
         </footer>
       </div>
     </div>
