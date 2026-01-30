@@ -1,193 +1,217 @@
 import React, { useState } from 'react';
 import { 
-  Highlighter, 
-  ArrowRight, 
-  Layers, 
-  Edit3, 
-  CheckCircle, 
-  AlertCircle,
-  FileText,
-  MousePointer2
+  Calendar, 
+  Clock, 
+  Columns, 
+  BarChart, 
+  CheckCircle2, 
+  AlertCircle
 } from 'lucide-react';
 
-const HYPO_TEXT = `Larry Lowthorp figured he would get even with his rival Morgan Mabray. Larry swabbed the outside of a coffee cup with streptococcal bacteria (pathogen for strep throat). Larry offered the cup to Morgan. Just as Morgan was about to drink, Nina Nabavian walked up and asked for a sip. Morgan handed it to Nina. Nina took a sip. Three days later, Nina contracted a horrible case of strep throat.`;
-
-const RULE_CHUNKS = [
-  { id: 'intent', label: '1. Intent', detail: 'Purpose or substantial certainty of contact.' },
-  { id: 'contact', label: '2. Harmful/Offensive Contact', detail: 'Direct or indirect invasion of the body.' },
-  { id: 'causation', label: '3. Causation', detail: 'Defendant’s act set the harm in motion.' }
-];
-
-const FACT_MAPS = [
-  { fact: "Larry swabbed the cup with bacteria with the purpose to get even.", target: "intent", explanation: "Shows conscious purpose to cause contact." },
-  { fact: "Nina took a sip of the contaminated cup.", target: "contact", explanation: "Contact occurred indirectly via the cup/liquid." },
-  { fact: "Nina contracted strep throat from the contamination.", target: "causation", explanation: "The harm followed directly from Larry's act." },
-  { fact: "Larry intended to get Morgan sick, but got Nina sick instead.", target: "intent", explanation: "Trigger for Transferred Intent doctrine." }
+const SECTIONS = [
+  { id: 'macro', label: '1. Master Calendar', icon: <Calendar className="w-5 h-5" />, level: 'Macro-Planning' },
+  { id: 'meso', label: '2. Weekly Time-Block', icon: <Clock className="w-5 h-5" />, level: 'Meso-Planning' },
+  { id: 'kanban', label: '3. Kanban Board', icon: <Columns className="w-5 h-5" />, level: 'Workflow Management' },
+  { id: 'gantt', label: '4. Gantt Chart', icon: <BarChart className="w-5 h-5" />, level: 'Strategic Dependency' }
 ];
 
 export default function App() {
-  const [stage, setStage] = useState(0);
-  const [selectedFact, setSelectedFact] = useState(null);
-
-  const stages = [
-    { title: "Step 1: The 'Call' of the Question", description: "Always read the final sentence first to find your focus." },
-    { title: "Step 2: Semantic Chunking", description: "Break the rule into discrete elements (The 'Skeleton')." },
-    { title: "Step 3: Fact Mapping", description: "Attach specific facts to specific elements." },
-    { title: "Step 4: The 'Because' Formula", description: "Convert the map into the final written product." }
-  ];
+  const [activeTab, setActiveTab] = useState('macro');
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 lg:p-8 font-sans text-slate-900">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
+      <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
         
-        {/* Header */}
-        <div className="mb-8 flex justify-between items-end">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-800">Visualizing Legal Analysis</h1>
-            <p className="text-slate-500 italic">Moving from Facts to Formal IRAC</p>
-          </div>
-          <div className="flex gap-2">
-            {stages.map((_, i) => (
-              <div key={i} className={`h-2 w-12 rounded-full ${i <= stage ? 'bg-blue-600' : 'bg-slate-200'}`} />
-            ))}
-          </div>
+        {/* Navigation Sidebar/Top */}
+        <div className="flex flex-col md:flex-row border-b border-slate-200 bg-slate-100">
+          {SECTIONS.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => setActiveTab(s.id)}
+              className={`flex-1 flex items-center justify-center gap-3 p-5 text-sm font-bold transition-all border-b-4 md:border-b-0 md:border-r last:border-r-0 ${
+                activeTab === s.id 
+                ? 'bg-white text-blue-600 border-blue-600' 
+                : 'text-slate-500 border-transparent hover:bg-slate-50'
+              }`}
+            >
+              {s.icon}
+              <div className="text-left">
+                <div className="block uppercase tracking-wider text-[10px] opacity-60 leading-none mb-1">{s.level}</div>
+                <div>{s.label}</div>
+              </div>
+            </button>
+          ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Content Area */}
+        <div className="p-6 md:p-10">
           
-          {/* Left Panel: The Input */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <div className="flex items-center gap-2 mb-4 text-blue-600 font-bold uppercase text-xs tracking-widest">
-              <FileText className="w-4 h-4" />
-              The Hypothetical
-            </div>
-            
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-100 text-lg leading-relaxed text-slate-700 relative">
-              {HYPO_TEXT}
-              <div className={`mt-4 p-2 bg-yellow-100 border-l-4 border-yellow-400 font-bold text-slate-800 transition-opacity duration-500 ${stage >= 0 ? 'opacity-100' : 'opacity-0'}`}>
-                Is Larry liable to Nina for Battery?
-              </div>
-              {stage === 0 && (
-                <div className="absolute -right-4 top-1/2 bg-blue-600 text-white p-2 rounded-full shadow-lg animate-bounce">
-                  <MousePointer2 className="w-6 h-6" />
+          {activeTab === 'macro' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="md:w-1/3">
+                  <h2 className="text-2xl font-bold mb-4">The "Bird's-Eye View"</h2>
+                  <p className="text-slate-600 leading-relaxed mb-6">
+                    Create this at the start of the term. It prevents missed deadlines and "panic cramming" by visualizing high-stakes dates before the semester gets busy.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="p-3 bg-blue-50 border-l-4 border-blue-600 text-sm">
+                      <span className="font-bold">Includes:</span> Midterms, Finals, Memo Deadlines, Holidays.
+                    </div>
+                    <div className="p-3 bg-slate-50 border-l-4 border-slate-400 text-sm">
+                      <span className="font-bold">Tools:</span> Google Calendar, Outlook, Large Wall Planners.
+                    </div>
+                  </div>
                 </div>
-              )}
+                <div className="md:w-2/3 w-full bg-slate-100 p-4 rounded-xl border border-slate-200">
+                  <div className="grid grid-cols-7 gap-2 text-center mb-2 font-bold text-xs text-slate-400">
+                    {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(d => <div key={d}>{d}</div>)}
+                  </div>
+                  <div className="grid grid-cols-7 gap-2 h-64">
+                    {Array.from({ length: 35 }).map((_, i) => (
+                      <div key={i} className="bg-white rounded p-1 text-[10px] flex flex-col justify-between border border-slate-100">
+                        <span>{i + 1}</span>
+                        {i === 12 && <div className="bg-red-500 text-white rounded px-1 truncate">FINAL MEMO</div>}
+                        {i === 24 && <div className="bg-orange-500 text-white rounded px-1 truncate">MIDTERM</div>}
+                        {i === 2 && <div className="bg-blue-500 text-white rounded px-1 truncate">LSD HOLIDAY</div>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
+          )}
 
-            {stage >= 2 && (
-              <div className="mt-6 space-y-2">
-                <p className="text-sm font-semibold text-slate-400 uppercase">Interactive Fact Mapping:</p>
-                {FACT_MAPS.map((m, i) => (
-                  <button 
-                    key={i}
-                    onClick={() => setSelectedFact(m)}
-                    className={`w-full text-left p-3 rounded-lg text-sm transition-all border ${selectedFact?.fact === m.fact ? 'bg-blue-50 border-blue-300 shadow-sm' : 'bg-white border-slate-200 hover:border-blue-200'}`}
-                  >
-                    "{m.fact}"
-                  </button>
+          {activeTab === 'meso' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="md:w-1/3">
+                  <h2 className="text-2xl font-bold mb-4">Weekly Time-Block</h2>
+                  <p className="text-slate-600 leading-relaxed mb-4">
+                    Reverse engineer your Master Calendar into an hourly schedule.
+                  </p>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" /> <strong>3:1 Ratio:</strong> 3 hrs study for every 1 hr in class.</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" /> <strong>Specificity:</strong> Not "Study," but "Outline Crim Law Ch 10."</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" /> <strong>Fixed Blocks:</strong> Commute, Meals, Sleep.</li>
+                  </ul>
+                </div>
+                <div className="md:w-2/3 w-full border border-slate-200 rounded-xl overflow-hidden bg-white">
+                  <div className="bg-blue-600 text-white p-3 text-center text-sm font-bold">SAMPLE MONDAY</div>
+                  <div className="divide-y divide-slate-100">
+                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">08:00 AM</div><div className="flex-1 bg-slate-50 p-2 rounded text-xs border border-slate-200 italic">Commute / Audio Outlines</div></div>
+                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">09:00 AM</div><div className="flex-1 bg-blue-100 p-2 rounded text-xs border border-blue-200 font-bold">Contracts (Room 102)</div></div>
+                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">11:00 AM</div><div className="flex-1 bg-green-100 p-2 rounded text-xs border border-green-200 font-bold">Study: Brief 3 Torts Cases</div></div>
+                    <div className="flex p-3"><div className="w-20 text-xs text-slate-400">01:00 PM</div><div className="flex-1 bg-green-100 p-2 rounded text-xs border border-green-200 font-bold">Study: Outline Crim Law Ch 10-14</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'kanban' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold mb-2">Kanban Board: Managing Flow</h2>
+                <p className="text-slate-600 max-w-2xl">
+                  Manage tasks, not just time. This visualizes your workflow and helps identify bottlenecks where work is piling up.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {['To Do', 'Doing', 'Done'].map((col, idx) => (
+                  <div key={col} className="bg-slate-100 p-4 rounded-xl min-h-[300px]">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="font-bold text-xs uppercase tracking-widest text-slate-500">{col}</span>
+                      <span className="bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full text-[10px] font-bold">
+                        {idx === 0 ? '3' : idx === 1 ? '1' : '5'}
+                      </span>
+                    </div>
+                    {col === 'To Do' && (
+                      <div className="space-y-2">
+                        <div className="bg-white p-3 rounded shadow-sm text-xs border border-slate-200">Read CivPro Rule 12(b)(6)</div>
+                        <div className="bg-white p-3 rounded shadow-sm text-xs border border-slate-200">Finalize Memo Citations</div>
+                        <div className="bg-white p-3 rounded shadow-sm text-xs border border-slate-200">Review Flashcards (Torts)</div>
+                      </div>
+                    )}
+                    {col === 'Doing' && (
+                      <div className="bg-blue-50 p-3 rounded shadow-sm text-xs border border-blue-200 border-l-4 border-l-blue-600">
+                        <div className="font-bold mb-1">Outlining: Intentional Torts</div>
+                        <div className="h-1.5 w-full bg-slate-200 rounded-full mt-2">
+                          <div className="h-full bg-blue-600 w-2/3 rounded-full"></div>
+                        </div>
+                      </div>
+                    )}
+                    {col === 'Done' && (
+                      <div className="opacity-50 space-y-2">
+                        <div className="bg-white p-3 rounded shadow-sm text-xs line-through italic">Brief Palsgraf v. Long Island RR</div>
+                        <div className="bg-white p-3 rounded shadow-sm text-xs line-through italic">Submit Crim Law Midterm</div>
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
-          {/* Right Panel: The Process */}
-          <div className="space-y-6">
-            <div className="bg-slate-800 text-white p-6 rounded-2xl shadow-xl min-h-[400px]">
-              <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
-                <Layers className="w-5 h-5 text-blue-400" />
-                {stages[stage].title}
-              </h2>
-              <p className="text-slate-400 mb-6 text-sm">{stages[stage].description}</p>
-
-              {/* Stage Specific Views */}
-              {stage === 1 && (
-                <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
-                  {RULE_CHUNKS.map(c => (
-                    <div key={c.id} className="p-4 bg-slate-700 rounded-xl border-l-4 border-blue-500">
-                      <div className="font-bold text-blue-300">{c.label}</div>
-                      <div className="text-sm text-slate-300">{c.detail}</div>
+          {activeTab === 'gantt' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="md:w-1/3">
+                  <h2 className="text-2xl font-bold mb-4">Gantt Chart: Dependencies</h2>
+                  <p className="text-slate-600 leading-relaxed mb-6">
+                    Used for long-term planning where tasks depend on one another. You cannot write the final draft until the research phase is done.
+                  </p>
+                  <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 flex gap-3">
+                    <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+                    <div className="text-xs text-amber-800">
+                      <strong>Pro Tip:</strong> Use "Free Google Sheets Gantt Templates" for a professional setup without learning complex software.
                     </div>
-                  ))}
-                </div>
-              )}
-
-              {stage === 2 && (
-                <div className="animate-in fade-in">
-                  {!selectedFact ? (
-                    <div className="flex flex-col items-center justify-center h-48 border-2 border-dashed border-slate-600 rounded-xl text-slate-500">
-                      <Highlighter className="w-8 h-8 mb-2" />
-                      Select a fact on the left to map it
-                    </div>
-                  ) : (
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4">
-                        <div className="p-3 bg-blue-900 rounded-lg text-xs font-mono text-blue-200 w-1/2">
-                          FACT: "{selectedFact.fact}"
-                        </div>
-                        <ArrowRight className="text-slate-500" />
-                        <div className="p-3 bg-green-900 rounded-lg text-xs font-mono text-green-200 w-1/2">
-                          ELEMENT: {selectedFact.target.toUpperCase()}
-                        </div>
-                      </div>
-                      <div className="p-4 bg-slate-700 rounded-xl italic text-sm">
-                        "This fact is legally significant because {selectedFact.explanation}"
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {stage === 3 && (
-                <div className="space-y-4 animate-in zoom-in-95">
-                  <div className="p-4 bg-green-900/30 border border-green-500/50 rounded-xl">
-                    <div className="text-xs font-bold text-green-400 mb-2 uppercase tracking-widest flex items-center gap-1">
-                      <CheckCircle className="w-3 h-3" /> The "A" in IRAC
-                    </div>
-                    <p className="text-sm text-slate-200 leading-relaxed">
-                      Larry is liable for battery <span className="text-yellow-400 font-bold">because</span> he intentionally swabbed the cup with streptococcus bacteria. Although Larry targeted Morgan, his intent transfers to Nina <span className="text-yellow-400 font-bold">because</span> the doctrine of transferred intent applies when a defendant intends to touch one person but contacts another. Contact was harmful <span className="text-yellow-400 font-bold">so</span> the requirement for battery is satisfied.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-red-900/20 border border-red-500/30 rounded-xl">
-                    <div className="text-xs font-bold text-red-400 mb-2 uppercase tracking-widest flex items-center gap-1">
-                      <AlertCircle className="w-3 h-3" /> The Conclusory Trap (Weak)
-                    </div>
-                    <p className="text-sm text-slate-400 italic">
-                      "Larry is liable because he infected her with bacteria. The elements of battery are met and the court will likely find for Nina."
-                    </p>
                   </div>
                 </div>
-              )}
-
-              {/* Navigation */}
-              <div className="mt-8 flex justify-between">
-                <button 
-                  disabled={stage === 0}
-                  onClick={() => setStage(stage - 1)}
-                  className="px-4 py-2 text-sm font-bold text-slate-400 hover:text-white disabled:opacity-0 transition-all"
-                >
-                  PREVIOUS
-                </button>
-                <button 
-                  onClick={() => stage < 3 ? setStage(stage + 1) : setStage(0)}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold transition-all shadow-lg"
-                >
-                  {stage < 3 ? 'NEXT STEP' : 'RESTART'}
-                </button>
+                <div className="md:w-2/3 w-full bg-white border border-slate-200 rounded-xl p-4 overflow-x-auto">
+                  <div className="min-w-[400px]">
+                    <div className="grid grid-cols-5 text-[10px] font-bold text-slate-400 mb-2 border-b pb-1 uppercase tracking-tighter">
+                      <div className="col-span-1">Task</div>
+                      <div>Wk 1</div>
+                      <div>Wk 2</div>
+                      <div>Wk 3</div>
+                      <div>Wk 4</div>
+                    </div>
+                    <div className="space-y-4 pt-2">
+                      <div className="grid grid-cols-5 items-center">
+                        <div className="text-[11px] font-semibold">Research Cases</div>
+                        <div className="col-span-1 bg-blue-500 h-6 rounded-l"></div>
+                        <div className="col-span-1 bg-blue-500 h-6 rounded-r mr-12"></div>
+                      </div>
+                      <div className="grid grid-cols-5 items-center">
+                        <div className="text-[11px] font-semibold">Draft Memo</div>
+                        <div></div>
+                        <div className="col-span-1 bg-indigo-500 h-6 rounded-l ml-8"></div>
+                        <div className="col-span-1 bg-indigo-500 h-6 rounded-r"></div>
+                      </div>
+                      <div className="grid grid-cols-5 items-center">
+                        <div className="text-[11px] font-semibold">Peer Review</div>
+                        <div></div>
+                        <div></div>
+                        <div className="col-span-1 bg-teal-500 h-6 rounded-l"></div>
+                        <div className="col-span-1 bg-teal-500 h-6 rounded-r"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
         </div>
 
-        {/* Pro-Tip Box */}
-        <div className="mt-8 p-6 bg-blue-50 border border-blue-100 rounded-2xl flex gap-4">
-          <div className="bg-blue-600 p-2 rounded-lg h-fit text-white">
-            <Edit3 className="w-5 h-5" />
-          </div>
+        <div className="bg-slate-900 text-white p-6 md:px-10 flex flex-col md:flex-row gap-6 md:items-center justify-between">
           <div>
-            <h4 className="font-bold text-blue-900">Academic Success Tip: The Mechanical Advantage</h4>
-            <p className="text-blue-800/80 text-sm leading-relaxed">
-              For non-traditional students coming from tech or engineering, legal analysis is simply <strong>Input (Facts) + Logic Gate (Rules) = Output (Conclusion)</strong>. Avoid the urge to tell a story; focus on the "Because" connection.
-            </p>
+             <h3 className="font-bold text-lg">Academic Productivity System</h3>
+             <p className="text-slate-400 text-sm italic">Structured Planning for Legal Professionals</p>
+          </div>
+          <div className="text-xs text-slate-500">
+            &copy; 2026 Legal Analysis Tool
           </div>
         </div>
       </div>
