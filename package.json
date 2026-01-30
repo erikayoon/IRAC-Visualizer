@@ -1,0 +1,13 @@
+{
+  "name": "irac-visualizer",
+  "version": "1.0.0",
+  "description": "IRAC Visualizer for Law School",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.1"
+  }
+}

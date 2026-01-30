@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRAC Visualizer - Law School</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>IRAC Visualizer</h1>
+      <p class="subtitle">Legal Analysis Framework for Law Students</p>
+    </header>
+
+    <main>
+      <div class="irac-grid">
+        <div class="irac-section issue">
+          <div class="section-header">
+            <span class="section-letter">I</span>
+            <h2>Issue</h2>
+          </div>
+          <textarea id="issue" placeholder="What is the legal question or problem? Frame it as a question that can be answered yes or no."></textarea>
+          <div class="tips">
+            <strong>Tips:</strong> Start with "Whether..." or "The issue is whether..."
+          </div>
+        </div>
+
+        <div class="irac-section rule">
+          <div class="section-header">
+            <span class="section-letter">R</span>
+            <h2>Rule</h2>
+          </div>
+          <textarea id="rule" placeholder="What is the applicable law, statute, or legal principle?"></textarea>
+          <div class="tips">
+            <strong>Tips:</strong> Cite relevant cases, statutes, or constitutional provisions.
+          </div>
+        </div>
+
+        <div class="irac-section application">
+          <div class="section-header">
+            <span class="section-letter">A</span>
+            <h2>Application</h2>
+          </div>
+          <textarea id="application" placeholder="How does the rule apply to the specific facts of this case?"></textarea>
+          <div class="tips">
+            <strong>Tips:</strong> Connect each element of the rule to specific facts.
+          </div>
+        </div>
+
+        <div class="irac-section conclusion">
+          <div class="section-header">
+            <span class="section-letter">C</span>
+            <h2>Conclusion</h2>
+          </div>
+          <textarea id="conclusion" placeholder="What is the answer to the legal issue?"></textarea>
+          <div class="tips">
+            <strong>Tips:</strong> Directly answer the issue question posed above.
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="clearBtn" class="btn btn-secondary">Clear All</button>
+        <button id="exportBtn" class="btn btn-primary">Export Analysis</button>
+      </div>
+
+      <div class="preview-section">
+        <h3>Analysis Preview</h3>
+        <div id="preview" class="preview-content">
+          <p class="placeholder-text">Your IRAC analysis will appear here as you type...</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>IRAC Visualizer - A tool for law students to structure legal analysis</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
