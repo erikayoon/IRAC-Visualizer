@@ -1,0 +1,132 @@
+2026-01-30 01:05:40.88
+4129db28
+User
+}
+2026-01-30 01:05:40.88
+4129db28
+User
+Error: Cannot find module '/home/runner/workspace/src/server.js'
+2026-01-30 01:05:40.88
+4129db28
+User
+^
+2026-01-30 01:05:40.88
+4129db28
+User
+at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+2026-01-30 01:05:40.88
+4129db28
+User
+at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2026-01-30 01:05:40.89
+4129db28
+System
+command finished with error [node src/server.js]: exit status 1
+2026-01-30 01:05:50.71
+4129db28
+User
+at node:internal/main/run_main_module:28:49 {
+2026-01-30 01:05:50.71
+4129db28
+User
+}
+2026-01-30 01:05:50.71
+4129db28
+User
+at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2026-01-30 01:05:50.71
+4129db28
+User
+Error: Cannot find module '/home/runner/workspace/src/server.js'
+2026-01-30 01:05:50.71
+4129db28
+User
+node:internal/modules/cjs/loader:1210
+2026-01-30 01:05:50.71
+4129db28
+User
+at Module._load (node:internal/modules/cjs/loader:1038:27)
+2026-01-30 01:05:50.71
+4129db28
+User
+at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+2026-01-30 01:05:50.71
+4129db28
+User
+^
+2026-01-30 01:05:50.71
+4129db28
+User
+code: 'MODULE_NOT_FOUND',
+2026-01-30 01:05:50.71
+4129db28
+User
+Node.js v20.20.0
+2026-01-30 01:05:50.71
+4129db28
+User
+requireStack: []
+2026-01-30 01:05:50.71
+4129db28
+User
+throw err;
+2026-01-30 01:05:50.72
+4129db28
+System
+command finished with error [node src/server.js]: exit status 1
+2026-01-30 01:05:52.12
+4129db28
+User
+Node.js v20.20.0
+2026-01-30 01:05:52.12
+4129db28
+User
+at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2026-01-30 01:05:52.12
+4129db28
+User
+requireStack: []
+2026-01-30 01:05:52.12
+4129db28
+User
+}
+2026-01-30 01:05:52.12
+4129db28
+User
+node:internal/modules/cjs/loader:1210
+2026-01-30 01:05:52.12
+4129db28
+User
+Error: Cannot find module '/home/runner/workspace/src/server.js'
+2026-01-30 01:05:52.12
+4129db28
+User
+at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+2026-01-30 01:05:52.12
+4129db28
+User
+code: 'MODULE_NOT_FOUND',
+2026-01-30 01:05:52.12
+4129db28
+User
+at node:internal/main/run_main_module:28:49 {
+2026-01-30 01:05:52.12
+4129db28
+User
+throw err;
+2026-01-30 01:05:52.12
+4129db28
+User
+at Module._load (node:internal/modules/cjs/loader:1038:27)
+2026-01-30 01:05:52.12
+4129db28
+User
+^
+2026-01-30 01:05:52.13
+4129db28
+System
+command finished with error [node src/server.js]: exit status 1
+2026-01-30 01:05:54.80
+4129db28
+System
+crash loop detected
