@@ -22,7 +22,7 @@ const FACT_MAPS = [
   { fact: "Larry swabbed the cup with bacteria with the purpose to get even.", target: "intent", explanation: "Shows conscious purpose to cause contact." },
   { fact: "Nina took a sip of the contaminated cup.", target: "contact", explanation: "Contact occurred indirectly via the cup/liquid." },
   { fact: "Nina contracted strep throat from the contamination.", target: "causation", explanation: "The harm followed directly from Larry's act." },
-  { fact: "Larry intended to hit Morgan, but hit Nina instead.", target: "intent", explanation: "Trigger for Transferred Intent doctrine." }
+  { fact: "Larry intended to get Morgan sick, but got Nina sick instead.", target: "intent", explanation: "Trigger for Transferred Intent doctrine." }
 ];
 
 export default function App() {
@@ -152,7 +152,7 @@ export default function App() {
                       <AlertCircle className="w-3 h-3" /> The Conclusory Trap (Weak)
                     </div>
                     <p className="text-sm text-slate-400 italic">
-                      "Larry is liable because he hit her with bacteria. The elements of battery are met and the court will likely find for Nina."
+                      "Larry is liable because he infected her with bacteria. The elements of battery are met and the court will likely find for Nina."
                     </p>
                   </div>
                 </div>
