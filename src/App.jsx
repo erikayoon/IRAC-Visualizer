@@ -39,7 +39,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 p-4 lg:p-8 font-sans text-slate-900">
       <div className="max-w-6xl mx-auto">
-
+        
         {/* Header */}
         <div className="mb-8 flex justify-between items-end">
           <div>
@@ -54,14 +54,14 @@ export default function App() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
+          
           {/* Left Panel: The Input */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
             <div className="flex items-center gap-2 mb-4 text-blue-600 font-bold uppercase text-xs tracking-widest">
               <FileText className="w-4 h-4" />
               The Hypothetical
             </div>
-
+            
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-100 text-lg leading-relaxed text-slate-700 relative">
               {HYPO_TEXT}
               <div className={`mt-4 p-2 bg-yellow-100 border-l-4 border-yellow-400 font-bold text-slate-800 transition-opacity duration-500 ${stage >= 0 ? 'opacity-100' : 'opacity-0'}`}>
@@ -144,7 +144,7 @@ export default function App() {
                       <CheckCircle className="w-3 h-3" /> The "A" in IRAC
                     </div>
                     <p className="text-sm text-slate-200 leading-relaxed">
-                      Larry is liable for battery <span className="text-yellow-400 font-bold">because</span> he intentionally swabbed the cup with streptococcus bacteria. Although Larry targeted Morgan, his intent transfers to Nina <span className="text-yellow-400 font-bold">because</span> the doctrine of transferred intent applies when a defendant intends to touch one person but contacts another. Contact was harmful <span className="text-yellow-400 font-bold">so</span> the requirement is met, as strep bacteria causes painful infection.
+                      Larry is liable for battery <span className="text-yellow-400 font-bold">because</span> he intentionally swabbed the cup with streptococcus bacteria. Although Larry targeted Morgan, his intent transfers to Nina <span className="text-yellow-400 font-bold">because</span> the doctrine of transferred intent applies when a defendant intends to touch one person but contacts another. Contact was harmful <span className="text-yellow-400 font-bold">so</span> the requirement for battery is satisfied.
                     </p>
                   </div>
                   <div className="p-4 bg-red-900/20 border border-red-500/30 rounded-xl">
