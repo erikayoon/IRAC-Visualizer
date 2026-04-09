@@ -23,7 +23,7 @@ const HYPO_FACTS = [
   { id: 7, text: "Jason leaves anyway and stops paying rent.", tag: "Breach/Performance", usedIn: "Confirming the injury/damages." }
 ];
 
-export default function IRACVisualizer({ onBack }) {
+export default function IRACVisualizer() {
   const [stage, setStage] = useState(0);
   const [minedFacts, setMinedFacts] = useState([]);
 
@@ -86,15 +86,6 @@ export default function IRACVisualizer({ onBack }) {
     <div className="min-h-screen bg-slate-50 p-4 lg:p-8 font-sans text-slate-900">
       <div className="max-w-6xl mx-auto">
 
-        {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="mb-6 flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors font-semibold"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          Back to Dashboard
-        </button>
-        
         {/* Header */}
         <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
