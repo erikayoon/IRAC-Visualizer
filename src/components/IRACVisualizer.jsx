@@ -314,6 +314,11 @@ export default function IRACVisualizer() {
           </div>
         </div>
 
+        {/* Footer */}
+        <div className="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-400">
+          &copy; 2026 Legal Success Dashboard. Built for COL law students - Erika Yoon
+        </div>
+
       </div>
     </div>
   );
