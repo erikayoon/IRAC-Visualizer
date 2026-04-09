@@ -16,14 +16,14 @@ import {
 const HYPO_FACTS = [
   { id: 1, text: "Jason, a 17 year old prodigy,", tag: "Capacity/Age", usedIn: "Establishing the general rule for minors." },
   { id: 2, text: "graduated from high school early and leaves home to attend college across the country.", tag: "Context/Independence", usedIn: "Showing he is living away from parental support." },
-  { id: 3, text: "Since he waited until the last minute... he can't get housing in the dorms.", tag: "Necessity (Constraint)", usedIn: "Proving the apartment was a necessity, not a luxury." },
+  { id: 3, text: "Since he waited until the last minute... he can’t get housing in the dorms.", tag: "Necessity (Constraint)", usedIn: "Proving the apartment was a necessity, not a luxury." },
   { id: 4, text: "Jason signs a 12 month lease for an apartment right next to campus.", tag: "The Contract", usedIn: "Defining the scope of the legal obligation." },
-  { id: 5, text: "After first semester, Jason is homesick and doesn't want to finish his freshman year.", tag: "Subjective Motive", usedIn: "Addressing (and dismissing) the excuse for breach." },
-  { id: 6, text: "He contacts his landlord and says that he is leaving and won't pay any more rent.", tag: "Repudiation", usedIn: "Identifying the act of breach." },
+  { id: 5, text: "After first semester, Jason is homesick and doesn’t want to finish his freshman year.", tag: "Subjective Motive", usedIn: "Addressing (and dismissing) the excuse for breach." },
+  { id: 6, text: "He contacts his landlord and says that he is leaving and won’t pay any more rent.", tag: "Repudiation", usedIn: "Identifying the act of breach." },
   { id: 7, text: "Jason leaves anyway and stops paying rent.", tag: "Breach/Performance", usedIn: "Confirming the injury/damages." }
 ];
 
-export default function IRACVisualizer({ onBack }) {
+export default function App() {
   const [stage, setStage] = useState(0);
   const [minedFacts, setMinedFacts] = useState([]);
 
@@ -37,6 +37,7 @@ export default function IRACVisualizer({ onBack }) {
 
   const getPercentage = () => Math.round((minedFacts.length / HYPO_FACTS.length) * 100);
 
+  // Dynamic IRAC Content Generator
   const generateDynamicAnalysis = () => {
     const has = (id) => minedFacts.includes(id);
     if (minedFacts.length === 0) return "Jason is liable for breach because he stopped paying rent.";
@@ -85,15 +86,6 @@ export default function IRACVisualizer({ onBack }) {
   return (
     <div className="min-h-screen bg-slate-50 p-4 lg:p-8 font-sans text-slate-900">
       <div className="max-w-6xl mx-auto">
-
-        {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="mb-6 flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors font-semibold"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          Back to Dashboard
-        </button>
         
         {/* Header */}
         <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -241,15 +233,14 @@ export default function IRACVisualizer({ onBack }) {
                 )}
 
                 {stage === 2 && (
-                  <div className="space-y-4 animate-in fade-in overflow-y-auto max-h-[350px] pr-2">
+                  <div className="space-y-4 animate-in fade-in overflow-y-auto max-h-[350px] pr-2 custom-scrollbar">
                     <p className="text-slate-400 text-sm">Every mined fact builds a new "Because" bridge:</p>
                     {minedFacts.length > 0 ? (
                       HYPO_FACTS.filter(f => minedFacts.includes(f.id)).map(f => (
                         <div key={f.id} className="p-3 bg-slate-900/50 border border-slate-700 rounded-lg flex gap-3 animate-in fade-in zoom-in-95">
                           <Quote className="w-4 h-4 text-blue-500 shrink-0" />
                           <div className="text-[11px] leading-relaxed">
-                            <span className="text-blue-400 font-bold uppercase tracking-tight">{f.tag}</span> because <span className="text-yellow-200">"{f.text}"</span>
-                            <div className="mt-1 text-slate-400 border-t border-slate-700 pt-1">Analysis Goal: {f.usedIn}</div>
+                            <span className="text-blue-400 font-bold uppercase tracking-tight">{f.tag}</span> because <span className="text-yellow-200">"{f.text}"</span> <div className="mt-1 text-slate-400 border-t border-slate-700 pt-1">Analysis Goal: {f.usedIn}</div>
                           </div>
                         </div>
                       ))
@@ -265,7 +256,7 @@ export default function IRACVisualizer({ onBack }) {
                 {stage === 3 && (
                   <div className="animate-in zoom-in-95 space-y-6">
                     <div className="flex items-center justify-between">
-                      <div className={`text-xs font-black uppercase tracking-widest flex items-center gap-2 ${getStatusLabel().color}`}>
+                       <div className={`text-xs font-black uppercase tracking-widest flex items-center gap-2 ${getStatusLabel().color}`}>
                         {minedFacts.length <= 2 ? <AlertCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
                         {getStatusLabel().label}
                       </div>
